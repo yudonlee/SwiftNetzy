@@ -12,7 +12,7 @@ This library is using Swift Concurrency and URLSession to handle HTTP communicat
 ## Features
 
 - Easy-to-use API for making HTTP requests
-- Supports HTTP methods(get, post but others will be supported)
+- Supports HTTP methods(get, post, put, delete available. others will be supported)
 - Supports URL query parameters
 - Supports JSON encoding/decoding
 
@@ -25,7 +25,7 @@ In the project, select File > Swift Packages > Add Package Dependency.
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/your_username/SwiftNetzy.git", from: "1.0.0")
+    .package(url: "https://github.com/yudonlee/SwiftNetzy.git", from: "1.0.0")
 ]
 ```
 
@@ -51,7 +51,7 @@ func exampleAsyncFunction() async throws {
     }
 }
 
-func exampleNoAsyncFunction() async throws {
+func exampleNoAsyncFunction() {
     let url = URL(string: "https://jsonplaceholder.typicode.com/posts/1")!
     let headers = ["Authorization": "Bearer <YOUR_ACCESS_TOKEN>"]
     Task {
