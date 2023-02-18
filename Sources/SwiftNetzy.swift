@@ -9,7 +9,7 @@ import Foundation
 
 public final class SwiftNetzy {
     
-    static func request<T: Codable>(_ type: T.Type, _ urlEnable: URLEnable, method: HTTPMethod, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:]) async throws -> T {
+    public static func request<T: Codable>(_ type: T.Type, _ urlEnable: URLEnable, method: HTTPMethod, headers: [String: String] = [:], params: [String: String] = [:], body: [String: String] = [:]) async throws -> T {
         
         let url = try urlEnable.toURL()
         
@@ -46,7 +46,6 @@ public final class SwiftNetzy {
         let result = try JSONDecoder().decode(T.self, from: data)
         return result
     }
-    
     
     static func requestURLSessionDataEscaping(for urlRequest: URLRequest) async throws -> (Data, URLResponse) {
        try await withCheckedThrowingContinuation({ continuation in
