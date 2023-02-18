@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="ViewController" customModule="Examples" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pwr-Hy-ZFo">
+                                <rect key="frame" x="20" y="79" width="353" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="OfW-a5-nIi"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Request Data"/>
+                                <connections>
+                                    <action selector="dataLoad:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="G0D-Zp-E6x"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="V8l-18-qsa">
+                                <rect key="frame" x="16" y="139" width="361" height="663"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="getLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liC-86-s41">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="165.66666666666666"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="postLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fqU-bG-8Pm">
+                                        <rect key="frame" x="0.0" y="165.66666666666669" width="361" height="166"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="putLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSx-kO-y6u">
+                                        <rect key="frame" x="0.0" y="331.66666666666669" width="361" height="165.66666666666669"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DeleteLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5uV-Pw-Ltg">
+                                        <rect key="frame" x="0.0" y="497.33333333333343" width="361" height="165.66666666666669"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pwr-Hy-ZFo" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="1kg-mD-Zo1"/>
+                            <constraint firstItem="V8l-18-qsa" firstAttribute="top" secondItem="pwr-Hy-ZFo" secondAttribute="bottom" id="2Yf-Pm-Cgk"/>
+                            <constraint firstItem="V8l-18-qsa" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="6Ng-t2-Wd3"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="V8l-18-qsa" secondAttribute="trailing" constant="16" id="CCq-tl-iMF"/>
+                            <constraint firstItem="pwr-Hy-ZFo" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="Tx6-0o-Kcj"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="pwr-Hy-ZFo" secondAttribute="trailing" constant="20" id="gOn-oR-lXW"/>
+                            <constraint firstItem="pwr-Hy-ZFo" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="kDr-jJ-bhW"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="V8l-18-qsa" secondAttribute="bottom" constant="16" id="zZ8-PZ-bcc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="deleteLabel" destination="5uV-Pw-Ltg" id="jYQ-Tj-ouR"/>
+                        <outlet property="getLabel" destination="liC-86-s41" id="gKx-nv-yGU"/>
+                        <outlet property="postLabel" destination="fqU-bG-8Pm" id="Avi-VN-YdC"/>
+                        <outlet property="putLabel" destination="cSx-kO-y6u" id="wyy-tJ-nLS"/>
+                        <outlet property="requestDataButotn" destination="pwr-Hy-ZFo" id="lUB-N0-b4j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="63" y="4"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
