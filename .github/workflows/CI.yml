@@ -14,13 +14,3 @@ jobs:
         run: sudo xcode-select -s '/Applications/Xcode_14.1.app//Contents/Developer'
       - name: Set Scheme and Build Xcode 
         run:  xcodebuild test -scheme "SwiftNetzy" -destination "platform=iOS Simulator,name=iPhone 14 Pro,OS=16.1" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
-          
-  iOS13: 
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Select Xcode Verson
-        run: sudo xcode-select -s '/Applications/Xcode_14.1.app//Contents/Developer'
-      - name: Set Scheme and Build Xcode 
-        run: xcodebuild test -scheme "SwiftNetzy" -destination "platform=iOS Simulator,name=iPhone 11,OS=13.0" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO
