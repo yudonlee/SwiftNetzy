@@ -15,6 +15,9 @@ struct HttpBinResponseModel: Codable {
     let origin:  String
 }
 
+struct HttpReqResponseModel: Codable {
+    let success: String
+}
 
 // MARK: - Headers
 struct Headers: Codable {
