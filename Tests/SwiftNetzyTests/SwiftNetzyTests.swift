@@ -37,7 +37,7 @@ final class SwiftNetzyTests: XCTestCase {
         XCTAssertEqual(deleteResponse.url, "https://httpbin.org/delete")
     }
     
-    func testPostMethodURLEncodedTest() async throws {
+    func testPostMethodURLEncoded() async throws {
         let headers = ["Content-Type": "application/x-www-form-urlencoded"]
         let bodyInfo: [String: String] = [
             "Id": "12345",
