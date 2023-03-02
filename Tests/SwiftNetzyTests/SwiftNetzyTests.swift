@@ -5,6 +5,10 @@ struct HttpBinResponseModel: Codable {
     let url: String
 }
 
+struct HttpReqResponseModel: Codable {
+    let success: String
+}
+
 final class SwiftNetzyTests: XCTestCase {
 
     func testGetMethod() async throws {
@@ -32,4 +36,29 @@ final class SwiftNetzyTests: XCTestCase {
         
         XCTAssertEqual(deleteResponse.url, "https://httpbin.org/delete")
     }
+    
+    func testPostMethodURLEncodedTest() async throws {
+        let headers = ["Content-Type": "application/x-www-form-urlencoded"]
+        let bodyInfo: [String: String] = [
+            "Id": "12345",
+            "Customer": "John Smith",
+            "Quantity": "1",
+            "Price": "10.00"
+          ]
+        let postResponse = try await SwiftNetzy.request(HttpReqResponseModel.self, "https://reqbin.com/echo/post/json", method: .post, headers: headers, body: bodyInfo, encoding: .bodyURLEncoded)
+        XCTAssertEqual(postResponse.success, "true")
+    }
+    
+    func testPostMethodJsonEncoded() async throws {
+        let headers = ["Content-Type": "application/json"]
+        let bodyInfo: [String: String] = [
+            "Id": "12345",
+            "Customer": "John Smith",
+            "Quantity": "1",
+            "Price": "10.00"
+          ]
+        let postResponse = try await SwiftNetzy.request(HttpReqResponseModel.self, "https://reqbin.com/echo/post/json", method: .post, headers: headers, body: bodyInfo, encoding: .bodyJsonEncoded)
+        XCTAssertEqual(postResponse.success, "true")
+    }
+    
 }
