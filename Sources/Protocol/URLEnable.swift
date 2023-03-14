@@ -23,6 +23,7 @@ extension URL: URLEnable {
         return self
     }
 }
+
 extension URLComponents: URLEnable {
     public func toURL() throws -> URL {
         guard let url = url else { throw SNError.invalidURL(url: self) }
@@ -30,7 +31,22 @@ extension URLComponents: URLEnable {
     }
 }
 
-
+extension URLRequest {
+    /// Creates URL Request with "url", "method", headers"
+    /// - Parameters:
+    ///   - url: The URLEnable  Value
+    ///   - method: The Http method(ex. get, post, put, delete)
+    ///   - headers: The Http headers
+    /// - Throws: Error thrown when converting URLEnable to a URL has failed
+    public init(url: URLEnable, method: HTTPMethod, headers: [String: String] = [:]) throws {
+        let url = try url.toURL()
+        
+        self.init(url: url)
+        
+        httpMethod = method.rawValue
+        allHTTPHeaderFields = headers
+    }
+}
 
 
 
