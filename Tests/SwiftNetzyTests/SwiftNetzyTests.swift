@@ -45,7 +45,7 @@ final class SwiftNetzyTests: XCTestCase {
             "Quantity": "1",
             "Price": "10.00"
           ]
-        let postResponse = try await SwiftNetzy.request(HttpReqResponseModel.self, "https://reqbin.com/echo/post/json", method: .post, headers: headers, body: bodyInfo, encoding: .bodyURLEncoded)
+        let postResponse = try await SwiftNetzy.request(HttpReqResponseModel.self, "https://reqbin.com/echo/post/json", method: .post, headers: headers, body: bodyInfo, bodyEncoding: URLEncoding.httpBody)
         XCTAssertEqual(postResponse.success, "true")
     }
     
@@ -57,7 +57,7 @@ final class SwiftNetzyTests: XCTestCase {
             "Quantity": "1",
             "Price": "10.00"
           ]
-        let postResponse = try await SwiftNetzy.request(HttpReqResponseModel.self, "https://reqbin.com/echo/post/json", method: .post, headers: headers, body: bodyInfo, encoding: .bodyJsonEncoded)
+        let postResponse = try await SwiftNetzy.request(HttpReqResponseModel.self, "https://reqbin.com/echo/post/json", method: .post, headers: headers, body: bodyInfo, bodyEncoding: JSONEncoding.default)
         XCTAssertEqual(postResponse.success, "true")
     }
     

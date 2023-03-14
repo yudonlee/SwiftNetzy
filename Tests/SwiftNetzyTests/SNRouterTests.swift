@@ -19,6 +19,23 @@ public enum SNRouterTestCases {
 }
 
 extension SNRouterTestCases: URLTarget {
+    public var task: URLRequestTask {
+        switch self {
+        case .testGetMethod:
+            return .none
+        case .testPostMethod:
+            return .none
+        case .testPutMethod:
+            return .none
+        case .testDeleteMethod:
+            return .none
+        case .testPostMethodURLEncoded:
+            return .none
+        case .testPostMethodJsonEncoded:
+            return .none
+        }
+    }
+
     public var baseURL: String {
         switch self {
         case .testPostMethodURLEncoded, .testPostMethodJsonEncoded:
@@ -87,19 +104,6 @@ extension SNRouterTestCases: URLTarget {
             return .post
         }
     }
-    
-    public var encoding: Encoding {
-        switch self {
-        case .testPostMethodJsonEncoded:
-            return .bodyJsonEncoded
-        case .testPostMethodURLEncoded:
-            return .bodyURLEncoded
-        default:
-            return .parameterUrlEncoded
-        }
-    }
-    
-    
 }
 
 final class SNRouterTests: XCTestCase {
