@@ -12,7 +12,13 @@ public enum SNError: Error {
     case invalidHttpResponse(statusCode: Int)
     
     public enum EncodingFailure: Error {
-        case contentTypeInvalid(contentType: String, encoding: Encoding)
+        case invalidContentType(contentType: String, encoding: ParameterEncoding)
+        case urlEncodingFailed(parameters: [String: String])
+        case jsonEncodingFailed(parameters: [String: String])
+    }
+    
+    public enum URLRequestFailure: Error {
+        case isURLEmpty(urlRequest: URLRequest)
     }
 }
 
@@ -27,14 +33,30 @@ extension SNError: LocalizedError {
     }
 }
 
-extension SNError.EncodingFailure {
+extension SNError.EncodingFailure: LocalizedError {
     public var errorDescription: String? {
         switch self {
-        case .contentTypeInvalid(let contentType, let encoding):
-            return "Content-Type header \(contentType) in an HTTP request did not match the encoding mode \(encoding.rawValue)"
+        case .invalidContentType(let contentType, let encoding):
+            return "Content-Type header \(contentType) in an HTTP request did not match the encoding mode \(encoding.self)"
+        case .urlEncodingFailed(let parameters):
+            let failureParams = parameters.map { "key: \($0), value: \($1)"}.joined(separator: ",")
+            return "The attempt to URL encode \(failureParams) has failed."
+        case .jsonEncodingFailed(let parameters):
+            let failureParams = parameters.map { "key: \($0), value: \($1)"}.joined(separator: ",")
+            return "The attempt to JSON encode \(failureParams) has failed."
         }
     }
 }
+
+extension SNError.URLRequestFailure: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .isURLEmpty(let urlRequest):
+            return "URLRequest has no URL: \(urlRequest)"
+        }
+    }
+}
+
 
 extension SNError: CustomDebugStringConvertible {
     public var debugDescription: String {

@@ -76,18 +76,20 @@ class ViewController: UIViewController {
         
         Task {
             do {
-                let getResponse = try await SwiftNetzy.request(HttpBinResponseModel.self, "https://httpbin.org/get", method: .get)
+                async let getResponse = SwiftNetzy.request(HttpBinResponseModel.self, "https://httpbin.org/get", method: .get)
                 
-                let postResponse = try await SwiftNetzy.request(HttpBinResponseModel.self, "https://httpbin.org/post", method: .post)
+                async let postResponse = SwiftNetzy.request(HttpBinResponseModel.self, "https://httpbin.org/post", method: .post)
                 
-                let putResponse = try await SwiftNetzy.request(HttpBinResponseModel.self, "https://httpbin.org/put", method: .put)
+                async let putResponse = SwiftNetzy.request(HttpBinResponseModel.self, "https://httpbin.org/put", method: .put)
                 
-                let deleteResponse = try await SwiftNetzy.request(HttpBinResponseModel.self, "https://httpbin.org/delete", method: .delete)
+                async let deleteResponse = SwiftNetzy.request(HttpBinResponseModel.self, "https://httpbin.org/delete", method: .delete)
                 
-                getLabel.text = "URL: \(getResponse.url) \nget method success\n \(getResponse.origin)"
-                postLabel.text = "URL: \(postResponse.url) \npost method success\n \(postResponse.origin)"
-                putLabel.text = "URL: \(putResponse.url) \nput method success\n \(putResponse.origin)"
-                deleteLabel.text = "URL: \(deleteResponse.url) \ndelete method success\(deleteResponse.origin)"
+                let data = try await [getResponse, postResponse, putResponse, deleteResponse]
+                
+                getLabel.text = "URL: \(data[0].url) \nget method success\n \(data[0].origin)"
+                postLabel.text = "URL: \(data[1].url) \npost method success\n \(data[1].origin)"
+                putLabel.text = "URL: \(data[2].url) \nput method success\n \(data[2].origin)"
+                deleteLabel.text = "URL: \(data[3].url) \ndelete method success\(data[3].origin)"
                 
                 
                 requestDataButotn.isEnabled = true
