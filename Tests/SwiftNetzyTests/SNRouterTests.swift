@@ -8,14 +8,14 @@
 import XCTest
 @testable import SwiftNetzy
 
-
 public enum SNRouterTestCases {
     case testGetMethod
     case testPostMethod
     case testPutMethod
     case testDeleteMethod
-    case testPostMethodURLEncoded
-    case testPostMethodJsonEncoded
+    case testPostMethodURLEncoded(body: [String: String])
+    case testPostMethodJsonEncoded(body: [String: String])
+    case testPostmethodParameterAndBodyURLEncoded(body: [String: String], parameter: [String: String])
 }
 
 extension SNRouterTestCases: URLTarget {
@@ -29,10 +29,12 @@ extension SNRouterTestCases: URLTarget {
             return .none
         case .testDeleteMethod:
             return .none
-        case .testPostMethodURLEncoded:
-            return .none
-        case .testPostMethodJsonEncoded:
-            return .none
+        case .testPostMethodURLEncoded(let body):
+            return .urlParameters(parameters: body, URLEncoding.httpBody)
+        case .testPostMethodJsonEncoded(let body):
+            return .jsonBody(body)
+        case .testPostmethodParameterAndBodyURLEncoded(let body, let parameter):
+            return .bodyParametersAndURLParameters(bodyParameters: body, bodyEncoding: URLEncoding.httpBody, urlParameters: parameter)
         }
     }
 
@@ -57,33 +59,14 @@ extension SNRouterTestCases: URLTarget {
             return "/delete"
         case .testPostMethodURLEncoded, .testPostMethodJsonEncoded:
             return "/echo/post/json"
-        }
-    }
-    
-    public var params: [String : String] {
-        switch self {
-        default:
-            return [:]
-        }
-    }
-    
-    public var body: [String : String] {
-        switch self {
-        case .testPostMethodURLEncoded, .testPostMethodJsonEncoded:
-            return [
-                "Id": "12345",
-                "Customer": "John Smith",
-                "Quantity": "1",
-                "Price": "10.00"
-              ]
-        default:
-            return [:]
+        case .testPostmethodParameterAndBodyURLEncoded:
+            return "/post"
         }
     }
     
     public var headers: [String : String] {
         switch self {
-        case .testPostMethodURLEncoded:
+        case .testPostMethodURLEncoded, .testPostmethodParameterAndBodyURLEncoded:
             return ["Content-Type": "application/x-www-form-urlencoded"]
         case .testPostMethodJsonEncoded:
             return ["Content-Type": "application/json"]
@@ -100,7 +83,7 @@ extension SNRouterTestCases: URLTarget {
             return .put
         case .testDeleteMethod:
             return .delete
-        case .testPostMethod, .testPostMethodJsonEncoded, .testPostMethodURLEncoded:
+        case .testPostMethod, .testPostMethodJsonEncoded, .testPostMethodURLEncoded, .testPostmethodParameterAndBodyURLEncoded:
             return .post
         }
     }
@@ -135,15 +118,42 @@ final class SNRouterTests: XCTestCase {
     }
     
     func testPostMethodURLEncoded() async throws {
-        let postResponse = try await router.request(target: .testPostMethodURLEncoded, type: HttpReqResponseModel.self)
+        let body = [
+            "Id": "12345",
+            "Customer": "John Smith",
+            "Quantity": "1",
+            "Price": "10.00"
+        ]
+        let postResponse = try await router.request(target: .testPostMethodURLEncoded(body: body), type: HttpReqResponseModel.self)
         
     
         XCTAssertEqual(postResponse.success, "true")
     }
     
     func testPostMethodJsonEncoded() async throws {
-        let postResponse = try await router.request(target: .testPostMethodJsonEncoded, type: HttpReqResponseModel.self)
+        let body = [
+            "Id": "12345",
+            "Customer": "John Smith",
+            "Quantity": "1",
+            "Price": "10.00"
+        ]
+        
+        let postResponse = try await router.request(target: .testPostMethodJsonEncoded(body: body), type: HttpReqResponseModel.self)
         XCTAssertEqual(postResponse.success, "true")
     }
 
+    func testPostmethodParameterAndBodyURLEncoded() async throws {
+        let body = [
+            "foo": "bar",
+            "baz": "qux"
+        ]
+        let param = [
+            "param1": "value1",
+            "param2": "value2"
+        ]
+        let postResponse = try await router.request(target: .testPostmethodParameterAndBodyURLEncoded(body: body, parameter: param), type: HttpBinResponseModel.self)
+        print(postResponse.url)
+        XCTAssertEqual(postResponse.url, "https://httpbin.org/post?param1=value1&param2=value2")
+    }
 }
+
